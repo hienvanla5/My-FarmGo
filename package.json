@@ -1,0 +1,22 @@
+{
+  "name": "farmgo-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nền tảng SaaS Quản lý trại gà hộ nông nghiệp Việt Nam - FarmGo",
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter farmgo-backend dev\" \"pnpm --filter farmgo-frontend dev\"",
+    "dev:backend": "pnpm --filter farmgo-backend dev",
+    "dev:frontend": "pnpm --filter farmgo-frontend dev",
+    "build": "pnpm --filter farmgo-shared build && pnpm --filter farmgo-backend build && pnpm --filter farmgo-frontend build",
+    "test": "pnpm --filter farmgo-backend test"
+  },
+  "workspaces": [
+    "shared",
+    "backend",
+    "frontend"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "typescript": "^5.7.3"
+  }
+}
