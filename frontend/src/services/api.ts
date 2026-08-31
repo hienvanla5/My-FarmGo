@@ -17,7 +17,10 @@ import {
   ChickenBreed 
 } from 'farmgo-shared';
 
-const API_BASE = '/api/v1';
+// In production (Vercel/Netlify), VITE_API_URL points to the backend (e.g. https://farmgo-backend.onrender.com)
+// In local development, it defaults to empty string and uses Vite reverse proxy
+const ENV_API_URL = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/$/, '') : '';
+const API_BASE = ENV_API_URL ? (ENV_API_URL.endsWith('/api/v1') ? ENV_API_URL : `${ENV_API_URL}/api/v1`) : '/api/v1';
 
 async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const token = localStorage.getItem('farmgo_token') || '';

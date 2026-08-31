@@ -1,4 +1,3 @@
-
 import fs from 'fs';
 import path from 'path';
 import { 
@@ -18,6 +17,12 @@ import {
   VIETNAMESE_CHICKEN_BREEDS,
   INITIAL_MARKET_PRICES
 } from 'farmgo-shared';
+import { 
+  isPostgresConfigured, 
+  initPostgresSchema, 
+  loadDataFromPostgres, 
+  syncAllDataToPostgres 
+} from './postgres.js';
 
 export interface DatabaseSchema {
   users: User[];
@@ -37,10 +42,36 @@ export interface DatabaseSchema {
 export class FarmGoDatabase {
   private data: DatabaseSchema;
   private filePath: string;
+  private isInitialized = false;
 
   constructor(filePath?: string) {
     this.filePath = filePath || path.join(process.cwd(), 'data', 'farmgo_db.json');
     this.data = this.loadData();
+  }
+
+  public async init(): Promise<void> {
+    if (this.isInitialized) return;
+    this.isInitialized = true;
+
+    if (isPostgresConfigured()) {
+      console.log('🐘 PostgreSQL detected via DATABASE_URL. Initializing database...');
+      try {
+        await initPostgresSchema();
+        const pgData = await loadDataFromPostgres();
+        if (pgData) {
+          this.data = pgData;
+          console.log(`📦 Loaded ${this.data.batches.length} batches and ${this.data.farms.length} farms from PostgreSQL`);
+        } else {
+          console.log('🌱 PostgreSQL database is empty, auto-seeding with FarmGo sample dataset...');
+          await syncAllDataToPostgres(this.data);
+          console.log('✅ PostgreSQL initial seed complete');
+        }
+      } catch (err) {
+        console.error('⚠️ Warning: PostgreSQL initialization encountered an issue, falling back to local store:', err);
+      }
+    } else {
+      console.log('📁 Using local JSON file store (set DATABASE_URL to connect Neon/Supabase PostgreSQL)');
+    }
   }
 
   private loadData(): DatabaseSchema {
@@ -73,6 +104,13 @@ export class FarmGoDatabase {
     } catch (err) {
       console.error('Failed to save database to file:', err);
     }
+
+    // Async sync to PostgreSQL in background if configured
+    if (isPostgresConfigured()) {
+      syncAllDataToPostgres(this.data).catch(err => {
+        console.error('PostgreSQL background sync error:', err);
+      });
+    }
   }
 
   private saveDataDirect(data: DatabaseSchema): void {
@@ -96,7 +134,7 @@ export class FarmGoDatabase {
     this.save();
   }
 
-  private getSeedData(): DatabaseSchema {
+  public getSeedData(): DatabaseSchema {
     const defaultUser: User = {
       id: 'usr_farmer_01',
       phone: '0988123456',
@@ -223,16 +261,13 @@ export class FarmGoDatabase {
     // Generate vaccine schedules for batch 1 (45 days old)
     const batch1Vaccines: BatchVaccineSchedule[] = STANDARD_VACCINE_LIBRARY.map((v, idx) => {
       const scheduledDate = new Date(new Date(batch1Start).getTime() + v.recommendedAgeDaysStart * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-      const isPast = v.recommendedAgeDaysStart <= 45;
-      const isDueSoon = v.recommendedAgeDaysStart >= 44 && v.recommendedAgeDaysStart <= 46;
-      
       let status: BatchVaccineSchedule['status'] = 'pending';
       let actualDate: string | undefined = undefined;
 
       if (v.recommendedAgeDaysStart < 40) {
         status = 'completed';
         actualDate = scheduledDate;
-      } else if (isDueSoon || (v.recommendedAgeDaysStart >= 40 && v.recommendedAgeDaysStart <= 48)) {
+      } else if (v.recommendedAgeDaysStart >= 40 && v.recommendedAgeDaysStart <= 48) {
         status = 'due';
       }
 
@@ -323,7 +358,6 @@ export class FarmGoDatabase {
 
     // Transactions (Finances)
     const transactions: Transaction[] = [
-      // Batch 1 Expenses
       {
         id: 'tx_b1_01',
         batchId: batch1.id,
@@ -331,7 +365,7 @@ export class FarmGoDatabase {
         type: 'expense',
         category: 'chicks',
         categoryName: 'Con giống',
-        amount: 14000000, // 1000 con * 14.000
+        amount: 14000000,
         date: formatDate(-45),
         paymentMethod: 'bank_transfer',
         payerReceiverName: 'Trại Giống Dabaco',
@@ -394,7 +428,6 @@ export class FarmGoDatabase {
         notes: 'Tiền điện thắp đèn hồng ngoại úm gà tháng đầu',
         createdAt: formatDate(-15)
       },
-      // Batch 3 Income & Expenses (Completed batch)
       {
         id: 'tx_b3_harvest',
         batchId: batch3.id,
@@ -402,7 +435,7 @@ export class FarmGoDatabase {
         type: 'income',
         category: 'sell_chicken_meat',
         categoryName: 'Bán gà thịt thương phẩm',
-        amount: 192870000, // 1150 con * 1.95kg * 86.000đ = 192.855.000
+        amount: 192870000,
         date: formatDate(-45),
         paymentMethod: 'bank_transfer',
         payerReceiverName: 'Thương lái Chợ Đầu Mối Hà Vĩ',
@@ -494,7 +527,7 @@ export class FarmGoDatabase {
         medicationsUsed: ['Doxycycline + Tylosin', 'Bromhexine long đờm'],
         medicationDosage: '1g / 2 lít nước',
         withdrawalDays: 7,
-        withdrawalEndDate: formatDate(2), // Active withdrawal reminder!
+        withdrawalEndDate: formatDate(2),
         treatmentNotes: 'Đang uống thuốc ngày thứ 3, giảm tiếng khò khè rõ rệt.',
         isResolved: false,
         createdAt: formatDate(-5)

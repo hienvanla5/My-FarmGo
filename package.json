@@ -8,7 +8,12 @@
     "dev:backend": "pnpm --filter farmgo-backend dev",
     "dev:frontend": "pnpm --filter farmgo-frontend dev",
     "build": "pnpm --filter farmgo-shared build && pnpm --filter farmgo-backend build && pnpm --filter farmgo-frontend build",
-    "test": "pnpm --filter farmgo-backend test"
+    "test": "pnpm --filter farmgo-backend test",
+    "start:backend": "pnpm --filter farmgo-backend start",
+    "preview:frontend": "pnpm --filter farmgo-frontend preview",
+    "db:migrate": "pnpm --filter farmgo-backend run db:migrate",
+    "db:seed": "pnpm --filter farmgo-backend run db:seed",
+    "lint": "tsc --noEmit"
   },
   "workspaces": [
     "shared",

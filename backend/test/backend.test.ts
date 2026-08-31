@@ -1,6 +1,8 @@
-
 import { describe, it, expect, beforeEach } from 'vitest';
+import request from 'supertest';
+import { app } from '../src/app.js';
 import { db } from '../src/db/storage.js';
+import { isPostgresConfigured } from '../src/db/postgres.js';
 import { BatchService } from '../src/services/batch.service.js';
 import { VaccineService } from '../src/services/vaccine.service.js';
 import { FeedService } from '../src/services/feed.service.js';
@@ -8,10 +10,37 @@ import { FinanceService } from '../src/services/finance.service.js';
 import { HealthService } from '../src/services/health.service.js';
 import { AiService } from '../src/services/ai.service.js';
 import { SubscriptionService } from '../src/services/subscription.service.js';
+import fs from 'fs';
+import path from 'path';
 
 describe('FarmGo Backend Services Unit & Integration Tests', () => {
   beforeEach(() => {
     db.resetToSeed();
+  });
+
+  describe('Production Endpoints & Healthcheck', () => {
+    it('should return healthcheck status 200 with runtime and database details', async () => {
+      const res = await request(app).get('/api/health');
+      expect(res.status).toBe(200);
+      expect(res.body.status).toBe('ok');
+      expect(res.body.database).toBeDefined();
+      expect(typeof res.body.uptimeSeconds).toBe('number');
+    });
+
+    it('should return 200 on root endpoint', async () => {
+      const res = await request(app).get('/');
+      expect(res.status).toBe(200);
+      expect(res.body.status).toBe('online');
+    });
+
+    it('should verify schema.sql file exists and contains valid DDL', () => {
+      const schemaPath = path.join(process.cwd(), 'src', 'db', 'schema.sql');
+      expect(fs.existsSync(schemaPath)).toBe(true);
+      const content = fs.readFileSync(schemaPath, 'utf-8');
+      expect(content).toContain('CREATE TABLE IF NOT EXISTS users');
+      expect(content).toContain('CREATE TABLE IF NOT EXISTS batches');
+      expect(content).toContain('CREATE TABLE IF NOT EXISTS transactions');
+    });
   });
 
   describe('Module 1: Batch Management & Metrics', () => {

@@ -10,9 +10,9 @@
       "district": "Sơn Tây",
       "role": "farmer",
       "currentPlan": "pro",
-      "planExpiryDate": "2026-09-30T14:48:17.771Z",
+      "planExpiryDate": "2026-09-30T14:59:58.913Z",
       "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2026-08-31T14:48:17.771Z"
+      "updatedAt": "2026-08-31T14:59:58.913Z"
     }
   ],
   "farms": [
@@ -61,8 +61,8 @@
       "unitPricePerChic": 14000,
       "status": "active",
       "notes": "Lứa gà giống đồng đều, mào đỏ tươi, vào chuồng ngày khô ráo, đệm lót trấu Balasa vi sinh.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.904Z"
     },
     {
       "id": "batch_mia_02",
@@ -81,8 +81,8 @@
       "unitPricePerChic": 18000,
       "status": "active",
       "notes": "Thả vườn đồi chè, bổ sung bắp ngô vỡ và rau xanh từ ngày 60.",
-      "createdAt": "2026-06-12T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-06-12T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.904Z"
     },
     {
       "id": "batch_ri_completed_03",
@@ -102,8 +102,8 @@
       "unitPricePerChic": 13500,
       "status": "completed",
       "notes": "Xuất bán toàn bộ cho thương lái Hà Nội ngày giáp Tết, được giá 86.000 đ/kg.",
-      "createdAt": "2026-04-03T14:48:17.762Z",
-      "updatedAt": "2026-07-17T14:48:17.762Z"
+      "createdAt": "2026-04-03T14:59:58.904Z",
+      "updatedAt": "2026-07-17T14:59:58.904Z"
     }
   ],
   "batchEvents": [
@@ -156,8 +156,8 @@
       "administeredBy": "Bác Ba Nông Dân",
       "cost": 180000,
       "notes": "Thường được tiêm ngay khi gà vừa nở tại lò giống. Giúp phòng ngừa liệt cánh chân và khối u nội tạng.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.904Z"
     },
     {
       "id": "sch_batch_ri_lai_01_vac_newcastle_1",
@@ -175,8 +175,8 @@
       "administeredBy": "Bác Ba Nông Dân",
       "cost": 180000,
       "notes": "Dùng chủng nhược độc Lasota hoặc kết hợp ND-IB Clon 30. Nhỏ 1 giọt vào 1 bên mắt/mũi gà.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.904Z"
     },
     {
       "id": "sch_batch_ri_lai_01_vac_gumboro_1",
@@ -194,8 +194,8 @@
       "administeredBy": "Bác Ba Nông Dân",
       "cost": 180000,
       "notes": "Dùng chủng Gumboro trung bình (Intermediate). Không dùng nước có clo để pha vaccine.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.904Z"
     },
     {
       "id": "sch_batch_ri_lai_01_vac_dau_ga",
@@ -213,8 +213,8 @@
       "administeredBy": "Bác Ba Nông Dân",
       "cost": 180000,
       "notes": "Dùng kim đôi chuyên dụng nhúng vaccine đâm qua màng cánh (tránh mạch máu và gân). Kiểm tra nốt đậu sau 5 ngày.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.904Z"
     },
     {
       "id": "sch_batch_ri_lai_01_vac_gumboro_2",
@@ -232,8 +232,8 @@
       "administeredBy": "Bác Ba Nông Dân",
       "cost": 180000,
       "notes": "Hãm nước 1-2 tiếng trước khi cho uống để gà uống hết trong vòng 1-2 giờ.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.904Z"
     },
     {
       "id": "sch_batch_ri_lai_01_vac_newcastle_2",
@@ -251,8 +251,8 @@
       "administeredBy": "Bác Ba Nông Dân",
       "cost": 180000,
       "notes": "Củng cố kháng thể niêm mạc đường hô hấp và tiêu hóa.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.904Z"
     },
     {
       "id": "sch_batch_ri_lai_01_vac_ib_bien_chung",
@@ -270,8 +270,8 @@
       "administeredBy": "Bác Ba Nông Dân",
       "cost": 180000,
       "notes": "Rất cần thiết tại các vùng dịch tễ hô hấp phức tạp hoặc mùa đông miền Bắc.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.905Z"
     },
     {
       "id": "sch_batch_ri_lai_01_vac_cum_gia_cam_1",
@@ -289,8 +289,8 @@
       "administeredBy": "Bác Ba Nông Dân",
       "cost": 180000,
       "notes": "Vaccine vô hoạt nhũ dầu. Bắt buộc theo quy định thú y quốc gia. Tiêm đúng liều, lắc đều lọ vaccine.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.905Z"
     },
     {
       "id": "sch_batch_ri_lai_01_vac_tu_huyet_trung",
@@ -304,8 +304,8 @@
       "applicationMethod": "Tiêm dưới da hoặc tiêm bắp",
       "dose": "0.5 ml/con",
       "notes": "Phòng bệnh thời điểm giao mùa thay đổi thời tiết đột ngột.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.905Z"
     },
     {
       "id": "sch_batch_ri_lai_01_vac_newcastle_he_1",
@@ -319,8 +319,8 @@
       "applicationMethod": "Tiêm bắp thịt hoặc dưới da",
       "dose": "0.5 ml/con",
       "notes": "Chỉ tiêm cho gà trên 2 tháng tuổi đã qua 2 lần nhỏ Lasota. Miễn dịch kéo dài suốt đời gà nuôi thịt.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.905Z"
     },
     {
       "id": "sch_batch_ri_lai_01_vac_cum_gia_cam_2",
@@ -334,8 +334,8 @@
       "applicationMethod": "Tiêm bắp lườn",
       "dose": "0.5 ml/con",
       "notes": "Dành cho gà thả vườn nuôi trên 3.5 tháng, gà đẻ trứng hoặc gà giống.",
-      "createdAt": "2026-07-17T14:48:17.762Z",
-      "updatedAt": "2026-08-31T14:48:17.762Z"
+      "createdAt": "2026-07-17T14:59:58.904Z",
+      "updatedAt": "2026-08-31T14:59:58.905Z"
     }
   ],
   "feedPurchases": [
@@ -648,22 +648,22 @@
       "paymentMethod": "VietQR - Ngân hàng Quân Đội MBBank",
       "transactionId": "VNPAY_20250101_88271",
       "startDate": "2025-01-01T00:00:00.000Z",
-      "endDate": "2026-09-30T14:48:17.763Z",
+      "endDate": "2026-09-30T14:59:58.905Z",
       "status": "active",
       "createdAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "sub_1788187697771_m9s",
+      "id": "sub_1788188398913_4e8",
       "userId": "usr_farmer_01",
       "plan": "pro",
       "planName": "Gói Trang Trại (VIP Không Giới Hạn)",
       "amountPaid": 99000,
       "paymentMethod": "vietqr",
-      "transactionId": "TXN_1788187697771",
-      "startDate": "2026-08-31T14:48:17.771Z",
-      "endDate": "2026-09-30T14:48:17.771Z",
+      "transactionId": "TXN_1788188398913",
+      "startDate": "2026-08-31T14:59:58.913Z",
+      "endDate": "2026-09-30T14:59:58.913Z",
       "status": "active",
-      "createdAt": "2026-08-31T14:48:17.771Z"
+      "createdAt": "2026-08-31T14:59:58.913Z"
     }
   ],
   "notifications": [
@@ -675,7 +675,7 @@
       "type": "vaccine",
       "relatedBatchId": "batch_ri_lai_01",
       "isRead": false,
-      "createdAt": "2026-08-31T14:48:17.763Z"
+      "createdAt": "2026-08-31T14:59:58.905Z"
     },
     {
       "id": "notif_02",
@@ -685,7 +685,7 @@
       "type": "health",
       "relatedBatchId": "batch_ri_lai_01",
       "isRead": false,
-      "createdAt": "2026-08-31T11:48:17.763Z"
+      "createdAt": "2026-08-31T11:59:58.905Z"
     },
     {
       "id": "notif_03",
@@ -694,7 +694,7 @@
       "body": "Giá gà Ri Lai xuất chuồng hôm nay tăng nhẹ +1.500 đ/kg lên mức 82.000 - 85.000 đ/kg. Thị trường đang tiêu thụ tốt.",
       "type": "market",
       "isRead": true,
-      "createdAt": "2026-08-30T14:48:17.763Z"
+      "createdAt": "2026-08-30T14:59:58.905Z"
     }
   ],
   "marketPrices": [
@@ -708,7 +708,7 @@
       "avgPrice": 82000,
       "trend": "up",
       "changePercent": 3.8,
-      "updatedAt": "2026-08-31T14:48:17.460Z"
+      "updatedAt": "2026-08-31T14:59:58.270Z"
     },
     {
       "id": "mp_ga_mia_bac",
@@ -720,7 +720,7 @@
       "avgPrice": 92000,
       "trend": "stable",
       "changePercent": 0.5,
-      "updatedAt": "2026-08-31T14:48:17.461Z"
+      "updatedAt": "2026-08-31T14:59:58.271Z"
     },
     {
       "id": "mp_ga_ta_nam",
@@ -732,7 +732,7 @@
       "avgPrice": 68500,
       "trend": "up",
       "changePercent": 2.2,
-      "updatedAt": "2026-08-31T14:48:17.461Z"
+      "updatedAt": "2026-08-31T14:59:58.271Z"
     },
     {
       "id": "mp_ga_trang_trung",
@@ -744,7 +744,7 @@
       "avgPrice": 34500,
       "trend": "down",
       "changePercent": -1.8,
-      "updatedAt": "2026-08-31T14:48:17.461Z"
+      "updatedAt": "2026-08-31T14:59:58.271Z"
     },
     {
       "id": "mp_trung_ga_ta",
@@ -756,7 +756,7 @@
       "avgPrice": 3500,
       "trend": "stable",
       "changePercent": 0,
-      "updatedAt": "2026-08-31T14:48:17.461Z"
+      "updatedAt": "2026-08-31T14:59:58.271Z"
     }
   ]
 }

@@ -1,0 +1,30 @@
+name: ⏰ Keep-Alive Ping (Anti-Cold-Start)
+
+on:
+  schedule:
+    # Ping every 10 minutes from 00:00 to 23:59 UTC
+    - cron: '*/10 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping-service:
+    name: 🏓 Ping FarmGo API Healthcheck
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🩺 Ping Backend Production URL
+        run: |
+          # Use secret or fallback default URL
+          TARGET_URL="${{ secrets.BACKEND_PRODUCTION_URL }}"
+          if [ -z "$TARGET_URL" ]; then
+            TARGET_URL="https://farmgo-backend.onrender.com/api/health"
+          fi
+          
+          echo "Pinging: $TARGET_URL"
+          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$TARGET_URL" || echo "000")
+          echo "Response HTTP Status: $HTTP_STATUS"
+          
+          if [ "$HTTP_STATUS" -ge 200 ] && [ "$HTTP_STATUS" -lt 400 ]; then
+            echo "✅ FarmGo Backend is awake and healthy!"
+          else
+            echo "⚠️ Backend returned status $HTTP_STATUS or is waking up."
+          fi

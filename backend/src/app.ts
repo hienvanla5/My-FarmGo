@@ -1,4 +1,3 @@
-
 import express from 'express';
 import cors from 'cors';
 import { authRouter } from './routes/auth.routes.js';
@@ -12,20 +11,76 @@ import { aiRouter } from './routes/ai.routes.js';
 import { subscriptionRouter } from './routes/subscription.routes.js';
 import { marketRouter } from './routes/market.routes.js';
 import { db } from './db/storage.js';
+import { isPostgresConfigured, pingPostgres } from './db/postgres.js';
 
 export const app = express();
 
+// CORS Configuration
+const corsOriginEnv = process.env.CORS_ORIGIN || '*';
+const allowedOrigins = corsOriginEnv.includes(',') 
+  ? corsOriginEnv.split(',').map(o => o.trim()) 
+  : corsOriginEnv;
+
 app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins === '*' || allowedOrigins.includes('*')) {
+      return callback(null, true);
+    }
+    if (Array.isArray(allowedOrigins) && allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+    if (typeof allowedOrigins === 'string' && (allowedOrigins === origin || allowedOrigins === '*')) {
+      return callback(null, true);
+    }
+    // Allow local development and Vercel/Netlify preview deployments
+    if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin) || origin.endsWith('.vercel.app') || origin.endsWith('.netlify.app')) {
+      return callback(null, true);
+    }
+    return callback(null, true); // Permissive fallback for SaaS API
+  },
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+  credentials: true
 }));
 
 app.use(express.json({ limit: '10mb' }));
 
-// Healthcheck
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', time: new Date().toISOString(), app: 'FarmGo SaaS API' });
+// Root welcome & status
+app.get('/', (req, res) => {
+  res.json({
+    name: 'FarmGo SaaS Production API',
+    version: '1.0.0',
+    description: 'Nền tảng Quản lý trại gà hộ nông sản Việt Nam',
+    status: 'online',
+    docs: '/api/v1',
+    health: '/api/health'
+  });
+});
+
+// Comprehensive Healthcheck for Render/Fly/Railway & UptimeRobot
+app.get('/api/health', async (req, res) => {
+  const dbConfigured = isPostgresConfigured();
+  let dbStatus = 'file-json';
+  let dbLatencyMs: number | undefined = undefined;
+
+  if (dbConfigured) {
+    const pgPing = await pingPostgres();
+    dbStatus = pgPing.connected ? 'postgresql-connected' : 'postgresql-error';
+    dbLatencyMs = pgPing.latencyMs;
+  }
+
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    uptimeSeconds: Math.floor(process.uptime()),
+    database: {
+      driver: dbStatus,
+      isPostgres: dbConfigured,
+      latencyMs: dbLatencyMs
+    },
+    memoryUsageMB: Math.round(process.memoryUsage().rss / 1024 / 1024),
+    environment: process.env.NODE_ENV || 'development'
+  });
 });
 
 // Database reset endpoint for testing/demo
