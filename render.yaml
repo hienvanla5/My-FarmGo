@@ -6,7 +6,7 @@ services:
     name: farmgo-backend
     env: node
     plan: free
-    region: singapore # Closest region to Vietnam for minimal latency
+    region: singapore
     buildCommand: pnpm --filter farmgo-shared build && pnpm --filter farmgo-backend build
     startCommand: pnpm --filter farmgo-backend start
     healthCheckPath: /api/health
@@ -23,22 +23,3 @@ services:
       # Connect your free Neon/Supabase PostgreSQL database URL below:
       - key: DATABASE_URL
         sync: false
-
-  # ==========================================
-  # FarmGo Frontend Web Application (Free Tier)
-  # ==========================================
-  - type: static_site
-    name: farmgo-frontend
-    buildCommand: pnpm --filter farmgo-shared build && pnpm --filter farmgo-frontend build
-    publishDir: frontend/dist
-    autoDeploy: true
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-    envVars:
-      - key: VITE_API_URL
-        fromService:
-          type: web
-          name: farmgo-backend
-          property: host
