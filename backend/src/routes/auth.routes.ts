@@ -1,11 +1,10 @@
-
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { AuthService } from '../services/auth.service.js';
 import { authMiddleware, AuthenticatedRequest } from '../middleware/auth.middleware.js';
 
 export const authRouter = Router();
 
-authRouter.post('/login', async (req, res) => {
+authRouter.post('/login', async (req: Request, res: Response) => {
   try {
     const { phoneOrEmail, password } = req.body;
     if (!phoneOrEmail) {
@@ -18,7 +17,7 @@ authRouter.post('/login', async (req, res) => {
   }
 });
 
-authRouter.get('/me', authMiddleware, async (req: AuthenticatedRequest, res) => {
+authRouter.get('/me', authMiddleware, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user?.userId || 'usr_farmer_01';
     const result = await AuthService.getCurrentUser(userId);
@@ -29,7 +28,7 @@ authRouter.get('/me', authMiddleware, async (req: AuthenticatedRequest, res) => 
   }
 });
 
-authRouter.put('/profile', authMiddleware, async (req: AuthenticatedRequest, res) => {
+authRouter.put('/profile', authMiddleware, async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user?.userId || 'usr_farmer_01';
     const updated = await AuthService.updateProfile(userId, req.body);

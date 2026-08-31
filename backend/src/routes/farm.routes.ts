@@ -1,5 +1,4 @@
-
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { FarmService } from '../services/farm.service.js';
 import { authMiddleware, AuthenticatedRequest } from '../middleware/auth.middleware.js';
 
@@ -7,7 +6,7 @@ export const farmRouter = Router();
 
 farmRouter.use(authMiddleware);
 
-farmRouter.get('/', async (req: AuthenticatedRequest, res) => {
+farmRouter.get('/', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user?.userId || 'usr_farmer_01';
     const list = await FarmService.listFarms(userId);
@@ -17,7 +16,7 @@ farmRouter.get('/', async (req: AuthenticatedRequest, res) => {
   }
 });
 
-farmRouter.post('/', async (req: AuthenticatedRequest, res) => {
+farmRouter.post('/', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user?.userId || 'usr_farmer_01';
     const farm = await FarmService.createFarm(userId, req.body);
@@ -27,16 +26,16 @@ farmRouter.post('/', async (req: AuthenticatedRequest, res) => {
   }
 });
 
-farmRouter.put('/:id', async (req, res) => {
+farmRouter.put('/:id', async (req: Request, res: Response) => {
   try {
-    const updated = await FarmService.updateFarm(req.params.id, req.body);
+    const updated = await FarmService.updateFarm(req.params.id as string, req.body);
     res.json({ success: true, data: updated });
   } catch (err: any) {
     res.status(400).json({ success: false, error: err.message });
   }
 });
 
-farmRouter.post('/:id/set-default', async (req: AuthenticatedRequest, res) => {
+farmRouter.post('/:id/set-default', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user?.userId || 'usr_farmer_01';
     await FarmService.setDefaultFarm(userId, req.params.id as string);

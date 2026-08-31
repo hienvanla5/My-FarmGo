@@ -7,7 +7,7 @@ services:
     env: node
     plan: free
     region: singapore
-    buildCommand: pnpm --filter farmgo-shared build && pnpm --filter farmgo-backend build
+    buildCommand: pnpm install --prod=false && pnpm --filter farmgo-shared build && pnpm --filter farmgo-backend build
     startCommand: pnpm --filter farmgo-backend start
     healthCheckPath: /api/health
     autoDeploy: true

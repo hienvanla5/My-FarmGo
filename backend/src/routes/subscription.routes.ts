@@ -1,5 +1,4 @@
-
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { SubscriptionService } from '../services/subscription.service.js';
 import { authMiddleware, AuthenticatedRequest } from '../middleware/auth.middleware.js';
 
@@ -7,12 +6,12 @@ export const subscriptionRouter = Router();
 
 subscriptionRouter.use(authMiddleware);
 
-subscriptionRouter.get('/plans', (req, res) => {
+subscriptionRouter.get('/plans', (req: Request, res: Response) => {
   const plans = SubscriptionService.getPlans();
   res.json({ success: true, data: plans });
 });
 
-subscriptionRouter.get('/current', async (req: AuthenticatedRequest, res) => {
+subscriptionRouter.get('/current', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user?.userId || 'usr_farmer_01';
     const sub = await SubscriptionService.getCurrentSubscription(userId);
@@ -22,7 +21,7 @@ subscriptionRouter.get('/current', async (req: AuthenticatedRequest, res) => {
   }
 });
 
-subscriptionRouter.post('/checkout', async (req: AuthenticatedRequest, res) => {
+subscriptionRouter.post('/checkout', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user?.userId || 'usr_farmer_01';
     const { planId, paymentMethod } = req.body;
@@ -33,7 +32,7 @@ subscriptionRouter.post('/checkout', async (req: AuthenticatedRequest, res) => {
   }
 });
 
-subscriptionRouter.post('/confirm', async (req: AuthenticatedRequest, res) => {
+subscriptionRouter.post('/confirm', async (req: AuthenticatedRequest, res: Response) => {
   try {
     const userId = req.user?.userId || 'usr_farmer_01';
     const { planId, paymentMethod, transactionId } = req.body;

@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import { authRouter } from './routes/auth.routes.js';
 import { farmRouter } from './routes/farm.routes.js';
@@ -22,7 +22,7 @@ const allowedOrigins = corsOriginEnv.includes(',')
   : corsOriginEnv;
 
 app.use(cors({
-  origin: (origin, callback) => {
+  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
     if (!origin || allowedOrigins === '*' || allowedOrigins.includes('*')) {
       return callback(null, true);
     }
@@ -46,7 +46,7 @@ app.use(cors({
 app.use(express.json({ limit: '10mb' }));
 
 // Root welcome & status
-app.get('/', (req, res) => {
+app.get('/', (req: Request, res: Response) => {
   res.json({
     name: 'FarmGo SaaS Production API',
     version: '1.0.0',
@@ -58,7 +58,7 @@ app.get('/', (req, res) => {
 });
 
 // Comprehensive Healthcheck for Render/Fly/Railway & UptimeRobot
-app.get('/api/health', async (req, res) => {
+app.get('/api/health', async (req: Request, res: Response) => {
   const dbConfigured = isPostgresConfigured();
   let dbStatus = 'file-json';
   let dbLatencyMs: number | undefined = undefined;
@@ -84,7 +84,7 @@ app.get('/api/health', async (req, res) => {
 });
 
 // Database reset endpoint for testing/demo
-app.post('/api/v1/system/reset-demo', (req, res) => {
+app.post('/api/v1/system/reset-demo', (req: Request, res: Response) => {
   db.resetToSeed();
   res.json({ success: true, message: 'Đã khôi phục dữ liệu mẫu chuẩn của trại gà' });
 });
@@ -102,7 +102,7 @@ app.use('/api/v1/subscriptions', subscriptionRouter);
 app.use('/api/v1/market', marketRouter);
 
 // Global Error Handler
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error('Unhandled Error:', err);
   res.status(500).json({
     success: false,
