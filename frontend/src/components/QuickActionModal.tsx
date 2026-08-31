@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../services/api';
-import { EXPENSE_CATEGORIES_INFO, INCOME_CATEGORIES_INFO } from 'farmgo-shared';
+import { EXPENSE_CATEGORIES_INFO, INCOME_CATEGORIES_INFO, Batch } from 'farmgo-shared';
 
 export const QuickActionModal: React.FC = () => {
   const { 
@@ -261,7 +261,7 @@ export const QuickActionModal: React.FC = () => {
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-green-500 outline-none"
                 >
                   <option value="">-- Toàn trang trại (Không chọn lứa) --</option>
-                  {activeBatches.map(b => (
+                  {activeBatches.map((b: Batch) => (
                     <option key={b.id} value={b.id}>{b.name}</option>
                   ))}
                 </select>
@@ -274,7 +274,7 @@ export const QuickActionModal: React.FC = () => {
                   onChange={e => setCategory(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-green-500 outline-none"
                 >
-                  {Object.entries(EXPENSE_CATEGORIES_INFO).map(([key, info]) => (
+                  {Object.entries(EXPENSE_CATEGORIES_INFO).map(([key, info]: [string, { label: string; icon: string; color: string }]) => (
                     <option key={key} value={key}>{info.label}</option>
                   ))}
                 </select>
@@ -334,7 +334,7 @@ export const QuickActionModal: React.FC = () => {
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-green-500 outline-none"
                 >
                   <option value="">-- Toàn trang trại (Không chọn lứa) --</option>
-                  {activeBatches.map(b => (
+                  {activeBatches.map((b: Batch) => (
                     <option key={b.id} value={b.id}>{b.name}</option>
                   ))}
                 </select>
@@ -347,7 +347,7 @@ export const QuickActionModal: React.FC = () => {
                   onChange={e => setIncomeCategory(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-green-500 outline-none"
                 >
-                  {Object.entries(INCOME_CATEGORIES_INFO).map(([key, info]) => (
+                  {Object.entries(INCOME_CATEGORIES_INFO).map(([key, info]: [string, { label: string; icon: string; color: string }]) => (
                     <option key={key} value={key}>{info.label}</option>
                   ))}
                 </select>
@@ -407,7 +407,7 @@ export const QuickActionModal: React.FC = () => {
                   onChange={e => setSelectedBatchId(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-green-500 outline-none"
                 >
-                  {activeBatches.map(b => (
+                  {activeBatches.map((b: Batch) => (
                     <option key={b.id} value={b.id}>{b.name} (Hiện có {b.currentQuantity} con)</option>
                   ))}
                 </select>
@@ -461,7 +461,7 @@ export const QuickActionModal: React.FC = () => {
                   onChange={e => setSelectedBatchId(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-green-500 outline-none"
                 >
-                  {activeBatches.map(b => (
+                  {activeBatches.map((b: Batch) => (
                     <option key={b.id} value={b.id}>{b.name}</option>
                   ))}
                 </select>
@@ -512,7 +512,7 @@ export const QuickActionModal: React.FC = () => {
                   onChange={e => setSelectedBatchId(e.target.value)}
                   className="w-full px-3 py-2 rounded-xl border border-slate-300 text-sm font-medium focus:ring-2 focus:ring-green-500 outline-none"
                 >
-                  {activeBatches.map(b => (
+                  {activeBatches.map((b: Batch) => (
                     <option key={b.id} value={b.id}>{b.name}</option>
                   ))}
                 </select>

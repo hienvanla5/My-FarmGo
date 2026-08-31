@@ -15,20 +15,20 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../services/api';
-import { HealthRecord, COMMON_POULTRY_DISEASES } from 'farmgo-shared';
+import { HealthRecord, COMMON_POULTRY_DISEASES, PoultryDisease } from 'farmgo-shared';
 
 export const HealthView: React.FC = () => {
   const { currentFarm, activeBatches, withdrawalAlerts, refreshData, showToast, setIsQuickActionOpen } = useApp();
-  const [selectedDisease, setSelectedDisease] = useState<any | null>(null);
+  const [selectedDisease, setSelectedDisease] = useState<PoultryDisease | null>(null);
   const [symptomSearch, setSymptomSearch] = useState('');
   const [allRecords, setAllRecords] = useState<(HealthRecord & { batchName: string })[]>([]);
   const [activeTab, setActiveTab] = useState<'alerts' | 'guide'>('alerts');
 
   const loadHealthData = async () => {
     try {
-      const recordsPromises = activeBatches.map(async b => {
+      const recordsPromises = activeBatches.map(async (b) => {
         const r = await api.getHealthRecords(b.id);
-        return r.map(item => ({ ...item, batchName: b.name }));
+        return r.map((item: HealthRecord) => ({ ...item, batchName: b.name }));
       });
       const results = await Promise.all(recordsPromises);
       setAllRecords(results.flat().sort((a, b) => b.date.localeCompare(a.date)));
@@ -41,10 +41,10 @@ export const HealthView: React.FC = () => {
     loadHealthData();
   }, [activeBatches]);
 
-  const filteredDiseases = COMMON_POULTRY_DISEASES.filter(d => {
+  const filteredDiseases = COMMON_POULTRY_DISEASES.filter((d: PoultryDisease) => {
     if (!symptomSearch) return true;
     const q = symptomSearch.toLowerCase();
-    return d.name.toLowerCase().includes(q) || d.symptoms.some(s => s.toLowerCase().includes(q));
+    return d.name.toLowerCase().includes(q) || d.symptoms.some((s: string) => s.toLowerCase().includes(q));
   });
 
   return (
@@ -173,7 +173,7 @@ export const HealthView: React.FC = () => {
           </div>
 
           <div className="space-y-3">
-            {filteredDiseases.map(d => (
+            {filteredDiseases.map((d: PoultryDisease) => (
               <div key={d.name} className="p-4 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-2">
                 <div className="flex items-center justify-between">
                   <h4 className="font-bold text-sm text-slate-900 flex items-center gap-1.5">
@@ -188,7 +188,7 @@ export const HealthView: React.FC = () => {
                 <div className="text-xs">
                   <span className="font-bold text-amber-800">Dấu hiệu nhận biết:</span>
                   <div className="flex flex-wrap gap-1 mt-1">
-                    {d.symptoms.map((s, i) => (
+                    {d.symptoms.map((s: string, i: number) => (
                       <span key={i} className="text-[10px] bg-amber-50 text-amber-900 border border-amber-200 px-2 py-0.5 rounded-md">
                         • {s}
                       </span>

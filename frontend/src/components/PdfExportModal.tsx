@@ -2,6 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { X, FileText, Download, Printer, CheckCircle2 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { Batch } from 'farmgo-shared';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
@@ -83,7 +84,7 @@ export const PdfExportModal: React.FC = () => {
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
                 <div className="text-slate-400 font-medium">Tổng Đàn Hiện Có</div>
                 <div className="text-lg font-black text-slate-900 mt-0.5">
-                  {batches.reduce((sum, b) => sum + (b.status === 'active' ? b.currentQuantity : 0), 0).toLocaleString('vi-VN')} con
+                  {batches.reduce((sum: number, b: Batch) => sum + (b.status === 'active' ? b.currentQuantity : 0), 0).toLocaleString('vi-VN')} con
                 </div>
               </div>
               <div className="p-3 rounded-xl bg-slate-50 border border-slate-200">
@@ -112,7 +113,7 @@ export const PdfExportModal: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {batches.map(b => (
+                  {batches.map((b: Batch) => (
                     <tr key={b.id} className="border-b border-slate-100 last:border-0">
                       <td className="p-2 font-bold">{b.name}</td>
                       <td className="p-2">{b.breedName}</td>

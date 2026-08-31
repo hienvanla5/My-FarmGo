@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../services/api';
-import { BatchVaccineSchedule, VaccineDefinition, STANDARD_VACCINE_LIBRARY } from 'farmgo-shared';
+import { Batch, BatchVaccineSchedule, VaccineDefinition, STANDARD_VACCINE_LIBRARY } from 'farmgo-shared';
 
 export const VaccineView: React.FC = () => {
   const { activeBatches, currentFarm, refreshData, showToast, setSelectedBatchId } = useApp();
@@ -26,9 +26,9 @@ export const VaccineView: React.FC = () => {
   const loadVaccines = async () => {
     try {
       setLoading(true);
-      const schedulePromises = activeBatches.map(async b => {
+      const schedulePromises = activeBatches.map(async (b: Batch) => {
         const schs = await api.getBatchVaccines(b.id);
-        return schs.map(s => ({ ...s, batchName: b.name }));
+        return schs.map((s: BatchVaccineSchedule) => ({ ...s, batchName: b.name }));
       });
       const results = await Promise.all(schedulePromises);
       setAllSchedules(results.flat().sort((a, b) => a.scheduledDate.localeCompare(b.scheduledDate)));
@@ -125,7 +125,7 @@ export const VaccineView: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {STANDARD_VACCINE_LIBRARY.map((v, idx) => {
+            {STANDARD_VACCINE_LIBRARY.map((v: VaccineDefinition, idx: number) => {
               const isExpanded = expandedVacId === v.id;
               return (
                 <div key={v.id} className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-2">
@@ -178,7 +178,7 @@ export const VaccineView: React.FC = () => {
               Không có mũi tiêm nào trong danh mục này.
             </div>
           ) : (
-            filteredList.map(s => {
+            filteredList.map((s: BatchVaccineSchedule & { batchName: string }) => {
               const isDone = s.status === 'completed';
               const isDue = s.status === 'due';
               const isOverdue = s.status === 'overdue';

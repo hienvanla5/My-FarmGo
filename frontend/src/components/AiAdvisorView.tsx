@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../services/api';
-import { MarketPriceItem, ChickenBreed } from 'farmgo-shared';
+import { MarketPriceItem, ChickenBreed, Batch } from 'farmgo-shared';
 
 export const AiAdvisorView: React.FC = () => {
   const { currentFarm, activeBatches, setSelectedBatchId } = useApp();
@@ -101,7 +101,7 @@ export const AiAdvisorView: React.FC = () => {
               onChange={e => setSelectedBatchState(e.target.value)}
               className="px-2.5 py-1 rounded-xl bg-white/20 text-white text-xs font-bold border border-white/30 outline-none"
             >
-              {activeBatches.map(b => (
+              {activeBatches.map((b: Batch) => (
                 <option key={b.id} value={b.id} className="text-slate-900">{b.name}</option>
               ))}
             </select>
@@ -217,7 +217,7 @@ export const AiAdvisorView: React.FC = () => {
         </h4>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-          {prices.map(item => (
+          {prices.map((item: MarketPriceItem) => (
             <div key={item.id} className="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs flex items-center justify-between">
               <div>
                 <span className="text-[10px] font-bold text-slate-500 uppercase">{item.region}</span>

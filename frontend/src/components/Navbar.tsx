@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../services/api';
+import { Farm } from 'farmgo-shared';
 
 export const Navbar: React.FC = () => {
   const { 
@@ -120,7 +121,7 @@ export const Navbar: React.FC = () => {
                 <div className="px-3 py-1.5 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                   Trang trại của bạn ({farms.length})
                 </div>
-                {farms.map(f => (
+                {farms.map((f: Farm) => (
                   <button
                     key={f.id}
                     onClick={() => {
@@ -192,7 +193,7 @@ export const Navbar: React.FC = () => {
                         <AlertTriangle className="w-3.5 h-3.5 text-amber-600" />
                         <span>Lịch tiêm hôm nay:</span>
                       </div>
-                      {vaccineAlerts.dueToday.map(v => (
+                      {vaccineAlerts.dueToday.map((v: any) => (
                         <div key={v.id} className="text-xs text-amber-800 mt-1 pl-4">
                           • <b>{v.batchName}</b>: {v.vaccineName} ({v.diseaseName})
                         </div>
@@ -206,7 +207,7 @@ export const Navbar: React.FC = () => {
                         <AlertTriangle className="w-3.5 h-3.5 text-red-600" />
                         <span>Cảnh báo thời gian ngưng thuốc:</span>
                       </div>
-                      {withdrawalAlerts.map(w => (
+                      {withdrawalAlerts.map((w: any) => (
                         <div key={w.batchId} className="text-xs text-red-800 mt-1 pl-4">
                           • <b>{w.batchName}</b>: Còn {w.remainingDays} ngày ngưng thuốc ({w.medications.join(', ')})
                         </div>

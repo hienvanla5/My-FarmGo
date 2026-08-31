@@ -5,7 +5,8 @@ import {
   SubscriptionPlan, 
   MarketPriceItem, 
   ExpenseCategory, 
-  IncomeCategory 
+  IncomeCategory,
+  PoultryDisease
 } from './types.js';
 
 export const VIETNAMESE_CHICKEN_BREEDS: ChickenBreed[] = [
@@ -385,7 +386,7 @@ export const INCOME_CATEGORIES_INFO: Record<IncomeCategory, { label: string; ico
   other_income: { label: 'Thu nhập khác', icon: 'PlusCircle', color: '#14B8A6' }
 };
 
-export const COMMON_POULTRY_DISEASES = [
+export const COMMON_POULTRY_DISEASES: PoultryDisease[] = [
   {
     name: 'Bệnh Cầu Trùng (Coccidiosis)',
     symptoms: ['Phân sáp vàng', 'Phân có lẫn máu tươi', 'Xù lông, cánh sã', 'Gà uống nhiều nước, giảm ăn'],

@@ -2,13 +2,14 @@
 import React, { useState } from 'react';
 import { Plus, Search, Filter, Layers, ArrowRight, CheckCircle2, Clock, XCircle } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { Batch } from 'farmgo-shared';
 
 export const BatchListView: React.FC = () => {
   const { batches, setSelectedBatchId, setIsNewBatchModalOpen } = useApp();
   const [filterStatus, setFilterStatus] = useState<'all' | 'active' | 'completed'>('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredBatches = batches.filter(b => {
+  const filteredBatches = batches.filter((b: Batch) => {
     if (filterStatus !== 'all' && b.status !== filterStatus) return false;
     if (searchQuery && !b.name.toLowerCase().includes(searchQuery.toLowerCase()) && !b.breedName.toLowerCase().includes(searchQuery.toLowerCase())) {
       return false;
@@ -86,7 +87,7 @@ export const BatchListView: React.FC = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
-          {filteredBatches.map(batch => {
+          {filteredBatches.map((batch: Batch) => {
             const isCompleted = batch.status === 'completed';
             const totalDays = 105;
             const agePercent = Math.min(100, Math.round(((batch.ageInDays || 1) / totalDays) * 100));

@@ -20,6 +20,7 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+import { Batch } from 'farmgo-shared';
 import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 
 export const DashboardView: React.FC = () => {
@@ -36,19 +37,19 @@ export const DashboardView: React.FC = () => {
     setIsQuickActionOpen
   } = useApp();
 
-  const totalActiveBirds = activeBatches.reduce((sum, b) => sum + b.currentQuantity, 0);
+  const totalActiveBirds = activeBatches.reduce((sum: number, b: Batch) => sum + b.currentQuantity, 0);
   const avgSurvivalRate = activeBatches.length > 0
-    ? (activeBatches.reduce((sum, b) => sum + (b.survivalRate || 95), 0) / activeBatches.length).toFixed(1)
+    ? (activeBatches.reduce((sum: number, b: Batch) => sum + (b.survivalRate || 95), 0) / activeBatches.length).toFixed(1)
     : '100';
 
-  const totalExpenses = activeBatches.reduce((sum, b) => sum + (b.totalExpense || 0), 0);
+  const totalExpenses = activeBatches.reduce((sum: number, b: Batch) => sum + (b.totalExpense || 0), 0);
 
   // Quick summary chart data
   const chartData = [
-    { name: 'Chi phí giống', amount: activeBatches.reduce((sum, b) => sum + ((b.initialQuantity || 0) * (b.unitPricePerChic || 14000)), 0) / 1000000 },
+    { name: 'Chi phí giống', amount: activeBatches.reduce((sum: number, b: Batch) => sum + ((b.initialQuantity || 0) * (b.unitPricePerChic || 14000)), 0) / 1000000 },
     { name: 'Chi phí cám', amount: (totalExpenses * 0.65) / 1000000 },
     { name: 'Thuốc & Vac', amount: (totalExpenses * 0.1) / 1000000 },
-    { name: 'Doanh thu dự kiến', amount: (activeBatches.reduce((sum, b) => sum + (b.currentQuantity * 1.8 * 82000), 0)) / 1000000 }
+    { name: 'Doanh thu dự kiến', amount: (activeBatches.reduce((sum: number, b: Batch) => sum + (b.currentQuantity * 1.8 * 82000), 0)) / 1000000 }
   ];
 
   return (
@@ -77,7 +78,7 @@ export const DashboardView: React.FC = () => {
       {/* 2. Urgent Alerts Section (if any) */}
       {(vaccineAlerts.dueToday.length > 0 || withdrawalAlerts.length > 0) && (
         <div className="space-y-2">
-          {vaccineAlerts.dueToday.map(v => (
+          {vaccineAlerts.dueToday.map((v: any) => (
             <div 
               key={v.id}
               onClick={() => setActiveTab('vaccines')}
@@ -91,7 +92,7 @@ export const DashboardView: React.FC = () => {
             </div>
           ))}
 
-          {withdrawalAlerts.map(w => (
+          {withdrawalAlerts.map((w: any) => (
             <div 
               key={w.batchId}
               onClick={() => setActiveTab('health')}
@@ -224,7 +225,7 @@ export const DashboardView: React.FC = () => {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-            {activeBatches.map(batch => {
+            {activeBatches.map((batch: Batch) => {
               const totalDays = 105;
               const agePercent = Math.min(100, Math.round(((batch.ageInDays || 1) / totalDays) * 100));
 

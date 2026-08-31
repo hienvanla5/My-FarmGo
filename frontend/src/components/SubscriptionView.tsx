@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../services/api';
-import { SUBSCRIPTION_PLANS, SubscriptionPlanType } from 'farmgo-shared';
+import { SUBSCRIPTION_PLANS, SubscriptionPlanType, SubscriptionPlan } from 'farmgo-shared';
 import confetti from 'canvas-confetti';
 
 export const SubscriptionView: React.FC = () => {
@@ -85,7 +85,7 @@ export const SubscriptionView: React.FC = () => {
         <div className="p-6 overflow-y-auto">
           {!checkoutData ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {SUBSCRIPTION_PLANS.map(plan => {
+              {SUBSCRIPTION_PLANS.map((plan: SubscriptionPlan) => {
                 const isCurrent = user?.currentPlan === plan.id;
                 const isPopular = plan.id === 'premium';
 
@@ -114,7 +114,7 @@ export const SubscriptionView: React.FC = () => {
                       </div>
 
                       <div className="my-4 border-t border-slate-100 pt-3 space-y-2">
-                        {plan.features.map((feat, idx) => (
+                        {plan.features.map((feat: string, idx: number) => (
                           <div key={idx} className="flex items-start gap-2 text-xs text-slate-700">
                             <Check className="w-4 h-4 text-green-600 flex-shrink-0 mt-0.5" />
                             <span>{feat}</span>

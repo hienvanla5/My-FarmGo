@@ -234,7 +234,7 @@ export const BatchDetailModal: React.FC = () => {
                 </div>
 
                 <div className="space-y-3 relative before:absolute before:left-3 before:top-2 before:bottom-2 before:w-0.5 before:bg-slate-200 pl-6">
-                  {events.map(evt => (
+                  {events.map((evt: BatchEvent) => (
                     <div key={evt.id} className="relative group">
                       <div className="absolute -left-6 top-1 w-3 h-3 rounded-full bg-green-600 border-2 border-white shadow-sm" />
                       <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
@@ -266,7 +266,7 @@ export const BatchDetailModal: React.FC = () => {
               </div>
 
               <div className="space-y-2">
-                {vaccines.map(vac => {
+                {vaccines.map((vac: BatchVaccineSchedule) => {
                   const isDone = vac.status === 'completed';
                   const isDue = vac.status === 'due';
                   const isOverdue = vac.status === 'overdue';
@@ -334,7 +334,7 @@ export const BatchDetailModal: React.FC = () => {
 
               <div className="space-y-2">
                 <div className="font-bold text-xs text-slate-700">Nhật ký tiêu thụ cám ({feeds.length} lần ghi)</div>
-                {feeds.map(f => (
+                {feeds.map((f: FeedConsumption) => (
                   <div key={f.id} className="p-2.5 rounded-xl bg-white border border-slate-200 text-xs flex items-center justify-between">
                     <div>
                       <span className="font-bold text-slate-800">{f.feedType === 'brooding' ? 'Cám Úm' : f.feedType === 'grower' ? 'Cám Tăng Trưởng' : 'Cám Vỗ Béo'}</span>
@@ -368,7 +368,7 @@ export const BatchDetailModal: React.FC = () => {
 
               <div className="space-y-2">
                 <div className="font-bold text-xs text-slate-700">Các giao dịch thu chi của lứa này</div>
-                {transactions.map(t => (
+                {transactions.map((t: Transaction) => (
                   <div key={t.id} className="p-2.5 rounded-xl bg-white border border-slate-200 text-xs flex items-center justify-between">
                     <div>
                       <span className="font-bold text-slate-800">{t.categoryName}</span>
@@ -389,7 +389,7 @@ export const BatchDetailModal: React.FC = () => {
             <div className="space-y-4">
               <div className="space-y-2">
                 <div className="font-bold text-xs text-slate-700">Nhật ký sức khỏe & Bệnh tật ({healthRecords.length} ghi nhận)</div>
-                {healthRecords.map(h => (
+                {healthRecords.map((h: HealthRecord) => (
                   <div key={h.id} className="p-3 rounded-2xl bg-white border border-slate-200 text-xs space-y-1">
                     <div className="flex items-center justify-between font-bold text-slate-800">
                       <span className="text-amber-700">⚠️ Hao hụt: {h.deathsCount} con chết</span>

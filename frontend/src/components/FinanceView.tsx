@@ -47,7 +47,7 @@ export const FinanceView: React.FC = () => {
     loadFinances();
   }, [currentFarm]);
 
-  const filteredTxs = transactions.filter(t => {
+  const filteredTxs = transactions.filter((t: Transaction) => {
     if (selectedType !== 'all' && t.type !== selectedType) return false;
     return true;
   });
@@ -215,7 +215,7 @@ export const FinanceView: React.FC = () => {
         </h4>
 
         <div className="space-y-2">
-          {filteredTxs.map(t => (
+          {filteredTxs.map((t: Transaction) => (
             <div key={t.id} className="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs flex items-center justify-between gap-2">
               <div className="flex items-center gap-2.5 min-w-0 pr-2">
                 <div className={`w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0 font-bold ${

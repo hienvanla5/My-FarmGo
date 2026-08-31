@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../services/api';
-import { FeedPurchase, FeedConsumption, FeedStage } from 'farmgo-shared';
+import { FeedPurchase, FeedConsumption, FeedStage, Batch } from 'farmgo-shared';
 
 export const FeedView: React.FC = () => {
   const { currentFarm, activeBatches, refreshData, showToast } = useApp();
@@ -164,7 +164,7 @@ export const FeedView: React.FC = () => {
               onChange={e => setSelectedBatchId(e.target.value)}
               className="px-3 py-1.5 rounded-xl border border-amber-300 bg-white text-xs font-bold text-slate-800 outline-none"
             >
-              {activeBatches.map(b => (
+              {activeBatches.map((b: Batch) => (
                 <option key={b.id} value={b.id}>{b.name}</option>
               ))}
             </select>
@@ -192,7 +192,7 @@ export const FeedView: React.FC = () => {
         </h4>
 
         <div className="space-y-2">
-          {purchases.map(p => (
+          {purchases.map((p: FeedPurchase) => (
             <div key={p.id} className="p-3 rounded-2xl bg-slate-50 border border-slate-200 text-xs flex items-center justify-between gap-2">
               <div>
                 <div className="font-bold text-slate-800 text-xs sm:text-sm">{p.brandName}</div>

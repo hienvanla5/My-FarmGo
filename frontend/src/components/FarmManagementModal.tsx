@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { X, Building2, Plus, CheckCircle, MapPin, Users, Award } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../services/api';
+import { Farm } from 'farmgo-shared';
 
 export const FarmManagementModal: React.FC = () => {
   const { 
@@ -72,7 +73,7 @@ export const FarmManagementModal: React.FC = () => {
           {!isAdding ? (
             <>
               <div className="space-y-2.5">
-                {farms.map(f => (
+                {farms.map((f: Farm) => (
                   <div
                     key={f.id}
                     className={`p-3.5 rounded-2xl border-2 flex items-center justify-between transition ${

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { X, Sparkles, CheckCircle, Calendar, Feather, ShieldAlert, ArrowRight } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { api } from '../services/api';
-import { VIETNAMESE_CHICKEN_BREEDS, STANDARD_VACCINE_LIBRARY } from 'farmgo-shared';
+import { VIETNAMESE_CHICKEN_BREEDS, STANDARD_VACCINE_LIBRARY, ChickenBreed, VaccineDefinition } from 'farmgo-shared';
 import confetti from 'canvas-confetti';
 
 export const NewBatchModal: React.FC = () => {
@@ -30,7 +30,7 @@ export const NewBatchModal: React.FC = () => {
 
   if (!isNewBatchModalOpen || !currentFarm) return null;
 
-  const selectedBreed = VIETNAMESE_CHICKEN_BREEDS.find(b => b.id === breedId) || VIETNAMESE_CHICKEN_BREEDS[0];
+  const selectedBreed = VIETNAMESE_CHICKEN_BREEDS.find((b: ChickenBreed) => b.id === breedId) || VIETNAMESE_CHICKEN_BREEDS[0];
 
   // Compute expected harvest date
   const harvestDate = new Date(new Date(startDate).getTime() + (selectedBreed.standardGrowthDays || 105) * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
@@ -96,7 +96,7 @@ export const NewBatchModal: React.FC = () => {
               <span>1. Chọn Giống Gà Nuôi</span>
             </label>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 max-h-48 overflow-y-auto p-1">
-              {VIETNAMESE_CHICKEN_BREEDS.map(breed => (
+              {VIETNAMESE_CHICKEN_BREEDS.map((breed: ChickenBreed) => (
                 <div
                   key={breed.id}
                   onClick={() => setBreedId(breed.id)}
@@ -208,7 +208,7 @@ export const NewBatchModal: React.FC = () => {
             </div>
 
             <div className="space-y-1.5 max-h-36 overflow-y-auto pr-1">
-              {STANDARD_VACCINE_LIBRARY.map((v, i) => {
+              {STANDARD_VACCINE_LIBRARY.map((v: VaccineDefinition, i: number) => {
                 const scheduledDate = new Date(new Date(startDate).getTime() + v.recommendedAgeDaysStart * 24 * 60 * 60 * 1000).toLocaleDateString('vi-VN');
                 return (
                   <div key={v.id} className="flex items-center justify-between text-xs py-1 border-b border-slate-100 last:border-0">

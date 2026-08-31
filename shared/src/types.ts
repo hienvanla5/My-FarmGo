@@ -284,3 +284,11 @@ export interface MarketPriceItem {
   changePercent: number;
   updatedAt: string;
 }
+
+export interface PoultryDisease {
+  name: string;
+  symptoms: string[];
+  treatmentSuggestion: string;
+  preventiveGuide: string;
+  withdrawalDays: number;
+}
